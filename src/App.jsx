@@ -17,7 +17,7 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col  bg-[#1B1D1E]">
       <Navbar setToggle={setToggle} />
 
       <main className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full">

@@ -35,7 +35,7 @@ const Card = ({
         </div>
 
         {/* Content */}
-        <div className="p-5 sm:p-6 lg:p-7">
+        <div className="p-5 sm:p-6 lg:p-7 bg-[#181A1B] text-[#E8E6E3]">
 
           {/* Personal Information */}
           <div className="mb-6">
