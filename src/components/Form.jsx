@@ -1,12 +1,9 @@
+
 import React from "react";
 import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
 
 const Form = ({ setUsers, users, setToggle, updatedData }) => {
-  // let data = useForm();
-  // console.log(data);
-  console.log(users);
-
   let {
     register,
     handleSubmit,
@@ -18,18 +15,15 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
   });
 
   const formSubmit = (data) => {
-    // console.log(data);
-    // setUsers((prev) => [...prev,data])
     if (updatedData) {
-   setUsers((prev) => {
+      setUsers((prev) => {
         const updatedUsers = prev.map((val) => {
           return val.id === updatedData.id ? { ...data } : val;
-         
         });
-         localStorage.setItem("users", JSON.stringify(updatedUsers));
-          return updatedUsers;
-    
-   })
+
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+        return updatedUsers;
+      });
     } else {
       let arr = [...users, { ...data, id: nanoid() }];
       setUsers(arr);
@@ -41,32 +35,32 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen p-4 sm:p-6 lg:p-8">
       <form
         onSubmit={handleSubmit(formSubmit)}
-        className="mx-auto w-full min-h-screen max-w-4xl rounded-xl bg-white p-4 shadow-lg sm:p-6 lg:p-8"
+        className="mx-auto min-h-screen w-full max-w-4xl rounded-2xl border border-gray-800 bg-gray-900 p-5 shadow-2xl sm:p-7 lg:p-10"
       >
         {/* Heading */}
-        <div className="mb-6 text-center sm:mb-8">
-          <h1 className="text-2xl font-bold text-gray-800 sm:text-3xl">
+        <div className="mb-8 text-center">
+          <h1 className="text-2xl font-bold text-white sm:text-3xl">
             Job Application Form
           </h1>
 
-          <p className="mt-2 text-sm text-gray-500 sm:text-base">
+          <p className="mt-2 text-sm text-gray-400 sm:text-base">
             Fill in your details to apply for a job
           </p>
         </div>
 
-        {/* ================= PERSONAL INFORMATION ================= */}
-        <div className="mb-6 sm:mb-8">
-          <h2 className="mb-4 border-b pb-2 text-lg font-semibold text-gray-700 sm:text-xl">
+        {/* PERSONAL INFORMATION */}
+        <div className="mb-8">
+          <h2 className="mb-5 border-b border-gray-700 pb-3 text-lg font-semibold text-gray-100 sm:text-xl">
             Personal Information
           </h2>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {/* Full Name */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Full Name
               </label>
 
@@ -80,16 +74,19 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 })}
                 type="text"
                 placeholder="Enter your full name"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.name && (
-                <p className="text-red-500">{errors.name.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.name.message}
+                </p>
               )}
             </div>
 
             {/* Email */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Email
               </label>
 
@@ -97,22 +94,26 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    value:
+                      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                     message: "Please enter valid email",
                   },
                 })}
                 type="email"
                 placeholder="Enter your email"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.email && (
-                <p className="text-red-500">{errors.email.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.email.message}
+                </p>
               )}
             </div>
 
             {/* Mobile */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Mobile Number
               </label>
 
@@ -130,16 +131,19 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 })}
                 type="tel"
                 placeholder="Enter mobile number"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.mobile && (
-                <p className="text-red-500">{errors.mobile.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.mobile.message}
+                </p>
               )}
             </div>
 
-            {/* Date of Birth */}
+            {/* DOB */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Date of Birth
               </label>
 
@@ -147,40 +151,50 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 {...register("dob", {
                   required: "DOB is required",
                   pattern: {
-                    value: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
+                    value:
+                      /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
                     message: "Please enter a valid date of birth",
                   },
                 })}
                 type="date"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.dob && (
-                <p className="text-red-500">{errors.dob.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.dob.message}
+                </p>
               )}
             </div>
 
             {/* Gender */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Gender
               </label>
 
               <select
-                {...register("gender", { required: "Gender is required" })}
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                {...register("gender", {
+                  required: "Gender is required",
+                })}
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               >
                 <option value="">Select gender</option>
                 <option>Male</option>
                 <option>Female</option>
                 <option>Other</option>
               </select>
+
               {errors.gender && (
-                <p className="text-red-500">{errors.gender.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.gender.message}
+                </p>
               )}
             </div>
 
+            {/* Image URL */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Image URL
               </label>
 
@@ -189,25 +203,29 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                   required: "Image-URL is required",
                 })}
                 type="url"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                placeholder="https://example.com/image.jpg"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.image && (
-                <p className="text-red-500">{errors.image.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.image.message}
+                </p>
               )}
             </div>
           </div>
         </div>
 
-        {/* ================= EDUCATION ================= */}
-        <div className="mb-6 sm:mb-8">
-          <h2 className="mb-4 border-b pb-2 text-lg font-semibold text-gray-700 sm:text-xl">
+        {/* EDUCATION */}
+        <div className="mb-8">
+          <h2 className="mb-5 border-b border-gray-700 pb-3 text-lg font-semibold text-gray-100 sm:text-xl">
             Education
           </h2>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {/* Qualification */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Highest Qualification
               </label>
 
@@ -215,7 +233,7 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 {...register("highEdu", {
                   required: "Highest education is required",
                 })}
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               >
                 <option value="">Select qualification</option>
                 <option>B.Tech</option>
@@ -224,14 +242,17 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 <option>M.Tech</option>
                 <option>MCA</option>
               </select>
+
               {errors.highEdu && (
-                <p className="text-red-500">{errors.highEdu.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.highEdu.message}
+                </p>
               )}
             </div>
 
             {/* College */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 College / University
               </label>
 
@@ -241,16 +262,19 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 })}
                 type="text"
                 placeholder="Enter college name"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.college && (
-                <p className="text-red-500">{errors.college.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.college.message}
+                </p>
               )}
             </div>
 
             {/* Graduation Year */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Graduation Year
               </label>
 
@@ -260,48 +284,58 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 })}
                 type="number"
                 placeholder="2026"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.eduYear && (
-                <p className="text-red-500">{errors.eduYear.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.eduYear.message}
+                </p>
               )}
             </div>
 
             {/* CGPA */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 CGPA / Percentage
               </label>
 
               <input
-                {...register("CGPA", { required: "CGPA is required" })}
+                {...register("CGPA", {
+                  required: "CGPA is required",
+                })}
                 type="text"
                 placeholder="Enter CGPA or percentage"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.CGPA && (
-                <p className="text-red-500">{errors.CGPA.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.CGPA.message}
+                </p>
               )}
             </div>
           </div>
         </div>
 
-        {/* ================= PROFESSIONAL INFORMATION ================= */}
-        <div className="mb-6 sm:mb-8">
-          <h2 className="mb-4 border-b pb-2 text-lg font-semibold text-gray-700 sm:text-xl">
+        {/* PROFESSIONAL INFORMATION */}
+        <div className="mb-8">
+          <h2 className="mb-5 border-b border-gray-700 pb-3 text-lg font-semibold text-gray-100 sm:text-xl">
             Professional Information
           </h2>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {/* Job Role */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Job Role
               </label>
 
               <select
-                {...register("jobRole", { required: "Job Role is required" })}
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                {...register("jobRole", {
+                  required: "Job Role is required",
+                })}
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               >
                 <option value="">Select job role</option>
                 <option>Frontend Developer</option>
@@ -310,14 +344,17 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 <option>Java Developer</option>
                 <option>React Developer</option>
               </select>
+
               {errors.jobRole && (
-                <p className="text-red-500">{errors.jobRole.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.jobRole.message}
+                </p>
               )}
             </div>
 
             {/* Experience */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Experience Level
               </label>
 
@@ -325,7 +362,7 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 {...register("Exp", {
                   required: "Experience level is required",
                 })}
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               >
                 <option value="">Select experience</option>
                 <option>Fresher</option>
@@ -333,31 +370,39 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 <option>1 - 2 Years</option>
                 <option>2+ Years</option>
               </select>
+
               {errors.Exp && (
-                <p className="text-red-500">{errors.Exp.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.Exp.message}
+                </p>
               )}
             </div>
 
             {/* Skills */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Skills
               </label>
 
               <input
-                {...register("skills", { required: "Skills are required" })}
+                {...register("skills", {
+                  required: "Skills are required",
+                })}
                 type="text"
                 placeholder="React, JavaScript, Java..."
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.skills && (
-                <p className="text-red-500">{errors.skills.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.skills.message}
+                </p>
               )}
             </div>
 
             {/* Salary */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Expected Salary
               </label>
 
@@ -367,38 +412,42 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 })}
                 type="number"
                 placeholder="Expected salary"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.salary && (
-                <p className="text-red-500">{errors.salary.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.salary.message}
+                </p>
               )}
             </div>
           </div>
         </div>
 
-        {/* ================= PROFESSIONAL LINKS ================= */}
-        <div className="mb-6 sm:mb-8">
-          <h2 className="mb-4 border-b pb-2 text-lg font-semibold text-gray-700 sm:text-xl">
+        {/* PROFESSIONAL LINKS */}
+        <div className="mb-8">
+          <h2 className="mb-5 border-b border-gray-700 pb-3 text-lg font-semibold text-gray-100 sm:text-xl">
             Professional Links
           </h2>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {/* GitHub */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 GitHub URL
               </label>
 
               <input
+                {...register("github")}
                 type="url"
                 placeholder="https://github.com/username"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
             </div>
 
             {/* LinkedIn */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 LinkedIn URL
               </label>
 
@@ -408,58 +457,70 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 })}
                 type="url"
                 placeholder="https://linkedin.com/in/username"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.linkedin && (
-                <p className="text-red-500">{errors.linkedin.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.linkedin.message}
+                </p>
               )}
             </div>
 
             {/* Portfolio */}
             <div className="md:col-span-2">
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Portfolio URL
               </label>
 
               <input
+                {...register("portfolio")}
                 type="url"
                 placeholder="https://yourportfolio.com"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
             </div>
           </div>
         </div>
 
-        {/* ================= RESUME ================= */}
-        <div className="mb-6 sm:mb-8">
-          <h2 className="mb-4 border-b pb-2 text-lg font-semibold text-gray-700 sm:text-xl">
+        {/* RESUME */}
+        <div className="mb-8">
+          <h2 className="mb-5 border-b border-gray-700 pb-3 text-lg font-semibold text-gray-100 sm:text-xl">
             Resume
           </h2>
 
           <input
-            {...register("resume", { required: "Resume is required" })}
+            {...register("resume", {
+              required: "Resume is required",
+            })}
             type="file"
-            className="w-full rounded-lg border p-2.5 text-sm"
+            className="w-full rounded-lg border border-gray-700 bg-gray-800 p-2.5 text-sm text-gray-300 file:mr-4 file:rounded-md file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-blue-700"
           />
+
           {errors.resume && (
-            <p className="text-red-500">{errors.resume.message}</p>
+            <p className="mt-1 text-sm text-red-400">
+              {errors.resume.message}
+            </p>
           )}
         </div>
 
-        {/* ================= ADDITIONAL INFORMATION ================= */}
-        <div className="mb-6 sm:mb-8">
-          <h2 className="mb-4 border-b pb-2 text-lg font-semibold text-gray-700 sm:text-xl">
+        {/* ADDITIONAL INFORMATION */}
+        <div className="mb-8">
+          <h2 className="mb-5 border-b border-gray-700 pb-3 text-lg font-semibold text-gray-100 sm:text-xl">
             Additional Information
           </h2>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {/* Notice Period */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Notice Period
               </label>
 
-              <select className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4">
+              <select
+                {...register("noticePeriod")}
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
+              >
                 <option value="">Select notice period</option>
                 <option>Immediate</option>
                 <option>15 Days</option>
@@ -469,9 +530,9 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
               </select>
             </div>
 
-            {/* Preferred Location */}
+            {/* Location */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Preferred Location
               </label>
 
@@ -481,55 +542,70 @@ const Form = ({ setUsers, users, setToggle, updatedData }) => {
                 })}
                 type="text"
                 placeholder="e.g. Pune, Mumbai"
-                className="w-full rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               />
+
               {errors.location && (
-                <p className="text-red-500">{errors.location.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.location.message}
+                </p>
               )}
             </div>
 
             {/* Cover Letter */}
             <div className="md:col-span-2">
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-300">
                 Cover Letter / About Yourself
               </label>
 
               <textarea
+                {...register("coverLetter")}
                 rows="5"
                 placeholder="Tell us about yourself..."
-                className="w-full resize-none rounded-lg border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 sm:px-4"
+                className="w-full resize-none rounded-lg border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
               ></textarea>
             </div>
           </div>
         </div>
 
-        {/* ================= TERMS ================= */}
-        <div className="mb-6 flex items-start gap-2">
+        {/* TERMS */}
+        <div className="mb-8 flex items-start gap-3">
           <input
-            {...register("agree", { required: "" })}
+            {...register("agree", {
+              required: "You must agree to the terms",
+            })}
             type="checkbox"
             id="terms"
-            className="mt-1 h-4 w-4 shrink-0"
+            className="mt-1 h-4 w-4 shrink-0 accent-blue-600"
           />
 
-          <label htmlFor="terms" className="text-sm text-gray-600">
-            I agree to the terms and conditions.
-          </label>
+          <div>
+            <label
+              htmlFor="terms"
+              className="text-sm text-gray-300"
+            >
+              I agree to the terms and conditions.
+            </label>
+
+            {errors.agree && (
+              <p className="mt-1 text-sm text-red-400">
+                {errors.agree.message}
+              </p>
+            )}
+          </div>
         </div>
 
-        {/* ================= BUTTONS ================= */}
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <button
-            // onClick={() => setToggle(false)}
-            type="submit"
-            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700 sm:flex-1"
-          >
-            Submit Application
-          </button>
-        </div>
+        {/* BUTTON */}
+        <button
+          type="submit"
+          className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+        >
+          {updatedData ? "Update Application" : "Submit Application"}
+        </button>
       </form>
     </div>
   );
 };
 
 export default Form;
+
